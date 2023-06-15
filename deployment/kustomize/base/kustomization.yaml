@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
+resources:
+  - deployment.yaml
+  - postgres-deployment.yaml
+  - postgres-service.yaml
+  - service.yaml
+  - secret.yaml
+
+images:
+    - name: sunrise9871dock/sampleapp
+      newTag:  main

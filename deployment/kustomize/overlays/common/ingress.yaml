@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sampleapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: portnyagin.dacdevops.ru
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sampleapp-service
+                port:
+                  name: http
+  tls:
+    - hosts:
+      - portnyagin.dacdevops.ru
+      secretName: portnyagin-cert

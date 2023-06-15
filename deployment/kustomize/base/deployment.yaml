@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sampleapp
+  template:
+    metadata:
+      labels:
+        app: sampleapp
+    spec:
+      initContainers:
+        - name: sampleapp-migrate
+          image: sunrise9871dock/sampleapp
+          command: ["python", "manage.py", "migrate"]
+          envFrom:
+            - secretRef:
+                name: sampleapp-secret
+      containers:
+        - name: sampleapp
+          image: sunrise9871dock/sampleapp
+          command: ["gunicorn", "--bind", "0.0.0.0:8000", "sampleproject.wsgi"]
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: sampleapp-secret
