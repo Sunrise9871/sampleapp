@@ -1,10 +1,10 @@
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && apt-get install -y \
     --no-install-recommends gcc \
-    python3.9-dev \
+    python3.11-dev \
     libpq-dev
 
 WORKDIR /opt/app
